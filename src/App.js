@@ -59,7 +59,7 @@ function getWeatherData({ lat, lon }) {
       })
       .then((data) => {
         setWeatherData(data);
-        // console.log(data);
+        console.log(data);
       })
       .catch((error) => {
         console.log(error);
@@ -96,17 +96,21 @@ function getWeatherData({ lat, lon }) {
       </header>
       <h2>Weather Data</h2>
       {weatherData && <p>Searched Location:______{locationName}</p>}
-      {/* {weatherData && <span>Temperature: {weatherData.main.temp}</span>} */}
       {weatherData && <p>Temperature:______{KtoC(weatherData.main.temp)} C°</p>}
       {weatherData && <p>Max Temperature:______{KtoC(weatherData.main.temp_max)} C°</p>}
       {weatherData && <p>Min Temperature:______{KtoC(weatherData.main.temp_min)} C°</p>}
       {weatherData && <p>Weather:______{weatherData.weather[0].main}</p>}
       {weatherData && <p>Description:______{weatherData.weather[0].description}</p>}
       {weatherData && <p>Feels Like:______{KtoC(weatherData.main.feels_like)} C°</p>}
+      {weatherData && <p>Humidity:______{weatherData.main.humidity}%</p>}
+      {weatherData && <p>Wind Speed:______{weatherData.wind.speed} km/h</p>}
+      {weatherData && <p>Wind Gust:______{weatherData.wind.gust} km/h</p>}
+      {weatherData && <p>Weather Station:______{weatherData.name}</p>}
       {weatherData && <p>Timezone:______{weatherData.timezone}</p>}
-      {weatherData && <p>Closest Weather Station:______{weatherData.name}</p>}
-      {/* {weatherData && <span>Temperature: {Math.floor(Celcius)}</span>} */}
-      {! locationName && ! weatherData && <p>Type a location to get weather infomation.</p>}
+      {weatherData && <p>Country:______{weatherData.sys.country}</p>}
+      {weatherData && <p>Coordinates</p>}
+      {weatherData && <p>Latitude: {weatherData.coord.lat}, Longitude: {weatherData.coord.lon}</p>}
+      {!locationName && ! weatherData && <p>Type a location to get weather infomation.</p>}
     </div>
   );
 }
