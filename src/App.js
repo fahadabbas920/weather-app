@@ -1,38 +1,17 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function App() {
   // const [renderDOM, setRenderDOM] = useState(false);
-  const [lat, setLat] = useState();
-  const [lon, setLon] = useState();
+  // const [lat, setLat] = useState();
+  // const [lon, setLon] = useState();
   const [locationName, setLocationName] = useState();
   const [weatherData, setWeatherData] = useState();
   const [error, setError] = useState();
-  // const [weather, setWeather] = useState({
-  //   feels_like: 0,
-  //   humidity: 0,
-  //   pressure: 0,
-  //   temp: 0,
-  //   temp_max: 0,
-  //   temp_min: 0,
-  // });
-
-  // function handleCurrentPosition(currentPosition){
-  //   console.log(currentPosition)
-  // }
 
   function handleClick() {
     getLocation(locationName);
   }
-
-  // async function handleLiveLoc(loc) {
-  //    navigator.geolocation.getCurrentPosition((p) => {
-  //     const {latitude,longitude} = p.coords
-  //     setLat(latitude)
-  //     setLon(longitude)
-  //     getWeatherData({lat,lon})
-  //   })
-  // }
 
   function getLocation(locationName) {
     fetch(
@@ -59,7 +38,6 @@ function getWeatherData({ lat, lon }) {
       })
       .then((data) => {
         setWeatherData(data);
-        // console.log(data);
       })
       .catch((error) => {
         console.log(error);
@@ -70,7 +48,6 @@ function getWeatherData({ lat, lon }) {
     return Math.floor(k - 273.15);
   }
 
-  // console.log(weatherData)
   return (
     <div className="App">
       <header className="App-header">
@@ -86,13 +63,6 @@ function getWeatherData({ lat, lon }) {
         >
           Get Weather
         </button>
-        {/* <button
-          onClick={() => {
-            handleLiveLoc();
-          }}
-        >
-          Current Position
-        </button> */}
       </header>
       <h2>Weather Data</h2>
       {weatherData && <p>Searched Location:______{locationName}</p>}
