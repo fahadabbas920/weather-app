@@ -225,7 +225,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        This app is currently in development mode. Will implement better GUI after all the necessary functions are implemented
+        <small>This app is currently in development mode. Will implement better GUI after all the necessary functions are implemented</small>
         <input
         placeholder="Type Location Name"
           onChange={(e) => {
@@ -233,7 +233,8 @@ function App() {
             
           }}
         ></input>
-        It is better if you type the complete location name e.g. Silicon Oasis, Dubai, UAE.
+        <small>If some location does not appear, try to type the complete location name e.g. Silicon Oasis, Dubai, UAE.</small>
+        <small>Please allow location in-case of live location, If you have pressed block, You need to enable it from browser site setting.</small>
         <button
           onClick={() => {
             handleClick();

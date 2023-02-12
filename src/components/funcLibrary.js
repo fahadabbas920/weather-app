@@ -38,3 +38,17 @@ export function changeTemp(value, option) {
       return Math.floor(value - 273.15);
   }
 }
+
+export function changT(option){
+  switch (option) {
+    case 1:
+      return "C°";
+    case 2:
+      return "K";
+    case 3:
+      return "F°";
+
+    default:
+      return "C°";
+  }
+}

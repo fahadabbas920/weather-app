@@ -2,7 +2,7 @@ import { changeTemp } from "./funcLibrary";
 import { timeConverter } from "./funcLibrary";
 import { useState } from "react";
 import { useEffect } from "react";
-
+import { changT } from "./funcLibrary";
 
 const WeatherDataDisplay = ({ weatherData, locationName }) => {
   //   console.log(weatherData, locationName);
@@ -30,7 +30,14 @@ const WeatherDataDisplay = ({ weatherData, locationName }) => {
 
 
     const [rad, setrad] = useState(1);
-
+    // const [t, sett] = useState('');
+    // if(rad===1){
+    //   sett('C°')
+    // }else if(rad===2){
+    //   sett('K')
+    // } else if(rad ===3){
+    //   sett('F°')
+    // }
 
   return (
     <div>
@@ -55,19 +62,19 @@ const WeatherDataDisplay = ({ weatherData, locationName }) => {
         </p>
       )}
       {weatherData && (
-        <p>Temperature:____________{changeTemp(weatherData.temp,rad)} C°</p>
+        <p>Temperature:____________{changeTemp(weatherData.temp,rad)} {changT(rad)}</p>
       )}
       {weatherData && (
-        <p>Max Temperature:________{changeTemp(weatherData.max_temp,rad)} C°</p>
+        <p>Max Temperature:________{changeTemp(weatherData.max_temp,rad)} {changT(rad)}</p>
       )}
       {weatherData && (
-        <p>Min Temperature:________{changeTemp(weatherData.min_temp,rad)} C°</p>
+        <p>Min Temperature:________{changeTemp(weatherData.min_temp,rad)} {changT(rad)}</p>
       )}
       {weatherData && <p>Weather:________________{weatherData.weather}</p>}
       {weatherData && <p>Clouds:________________{weatherData.clouds} %</p>}
       {weatherData && <p>Description:____________{weatherData.description}</p>}
       {weatherData && (
-        <p>Feels Like:_____________{changeTemp(weatherData.feels_like,rad)} C°</p>
+        <p>Feels Like:_____________{changeTemp(weatherData.feels_like,rad)} {changT(rad)}</p>
       )}
       {weatherData && (
         <p>Pressure:_______________{weatherData.pressure} mbar</p>
