@@ -122,7 +122,7 @@ const WeatherDataDisplay = ({ weatherData, locationName }) => {
             Latitude: {weatherData.lat}, Longitude: {weatherData.lon}
           </p>
         )}
-        {!locationName && !weatherData && (
+        {!locwationName && !weatherData && (
           <p>Type a location to get weather infomation.</p>
         )}
       </div> */}
