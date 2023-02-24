@@ -1,0 +1,102 @@
+  // const [renderDOM, setRenderDOM] = useState(false);
+  // const [lat, setLat] = useState();
+  // const [lon, setLon] = useState();
+
+
+  // const [weatherForecast, setWeatherforcast] = useState({
+  // const [Data,setData] = useContext(weatherDatas)
+  // console.log(Data)
+  // });
+
+
+    // const [airPollution, setAirPollution] = useState({
+  //   co: 0,
+  //   nh3: 0,
+  //   no: 0,
+  //   no2: 0,
+  //   o3: 0,
+  //   pm2_5: 0,
+  //   pm10: 0,
+  //   so2: 0,
+  //   dt: 0,
+  //   aqi : 0
+  // });
+  // const [liveLoc, setLiveLoc] = useState();
+  // const [state, setstate] = useState(""); //used for weather map
+  // const [weatherData, setWeatherData] = useState();
+
+
+    //4611456521
+  /////////////////////////////////////////////////////////////Forecast////////////////////////////////////////////////////////
+  // function getForcast({ lat, lon }) {
+  //   fetch(
+  //     `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=fed0b3710b7bef715d1a4f4e8864ffa9`
+  //   )
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       console.log(data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
+
+  /////////////////////////////////////////////////////////////Pollution///////////////////////////////////////////////////////
+  // function getPollutionData({ lat, lon }) {
+  //   fetch(
+  //     `http://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=${lat}&lon=${lon}&appid=fed0b3710b7bef715d1a4f4e8864ffa9`
+  //   )
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       setAirPollution(data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
+
+  /////////////////////////////////////////////////////////////Weather Map///////////////////////////////////////////////////////
+
+  // function getWeatherMap({ lat, lon }) {
+  //   fetch(
+  //     `https://tile.openweathermap.org/map/precipitation_new/25/${Math.floor(
+  //       lon
+  //     )}/${Math.floor(lat)}.png?appid=fed0b3710b7bef715d1a4f4e8864ffa9`
+  //   )
+  //     // fetch("https://th.bing.com/th?id=ORMS.9efa4050627dc119f75b7303598b88de&pid=Wdp&w=300&h=156&qlt=90&c=1&rs=1&dpr=1.25&p=0")
+  //     .then((res) => {
+  //       return res.blob();
+  //     })
+  //     .then((data) => {
+  //       const imageObjectURL = URL.createObjectURL(data);
+  //       setstate(imageObjectURL);
+  //       // console.log(imageObjectURL)
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
+
+  // function KtoC(k) {
+  //   return Math.floor(k - 273.15);
+  // }
+
+
+        //   {/* <small>
+        //   This app is currently in development mode. Will implement better GUI
+        //   after all the necessary functions are implemented
+        // </small> */}
+
+
+        //         {/* <small>
+        //   If some location does not appear, try to type the complete location
+        //   name e.g. Silicon Oasis, Dubai, UAE.
+        // </small>
+        // <small>
+        //   Please allow location in-case of live location, If you have pressed
+        //   block, You need to enable it from browser site setting.
+        // </small> */}
