@@ -44,6 +44,7 @@
   text-align: center;
   /* position: absolute; */
   /* position: relative; */
+  overflow: hidden;
 }
 .myApp{
   position: absolute;
@@ -65,12 +66,14 @@
   position: absolute; */
   z-index: -1;
   height: 100vh;
+  scale: 1.5;
   background-image: url(/src/background.jpeg);
   content: '';
   background-position: center;
   background-repeat: no-repeat;
   background-size: 200;
-  filter: blur(10px);
+  filter: blur(5px);
+  
 }
 
 
