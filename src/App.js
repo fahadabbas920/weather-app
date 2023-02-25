@@ -29,6 +29,7 @@ function App() {
     lat: "NaN",
     lon: "NaN",
     icon: "NaN",
+    dt: "NaN"
   });
   // const [tempName, setTempName] = useState()
   const inputref = useRef();
@@ -136,11 +137,12 @@ function App() {
           sunrise: data.sys.sunrise,
           sunset: data.sys.sunset,
           icon: data.weather[0].icon,
+          dt: data.dt
         });
-        console.log(data);
+        // console.log(data.dt);
         // getForcast({ lat, lon });
         // getPollutionData({ lat, lon });
-        // // getWeatherMap({ lat, lon });
+        // getWeatherMap({ lat, lon });
       })
       .catch((error) => {
         console.log(error);

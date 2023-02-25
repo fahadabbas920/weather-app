@@ -3,6 +3,7 @@ import { timeConverter } from "./funcLibrary";
 import { useState } from "react";
 import { useEffect } from "react";
 import { changT } from "./funcLibrary";
+import { changeSpeed } from "./funcLibrary";
 
 const WeatherDataDisplay = ({ weatherData, locationName }) => {
   //   console.log(weatherData, locationName);
@@ -27,7 +28,7 @@ const WeatherDataDisplay = ({ weatherData, locationName }) => {
     }
   }, [weatherData.icon]);
 
-  const [rad, setrad] = useState(1);
+  // const [rad, setrad] = useState(1);
   // const [t, sett] = useState('');
   // if(rad===1){
   //   sett('C°')
@@ -36,7 +37,22 @@ const WeatherDataDisplay = ({ weatherData, locationName }) => {
   // } else if(rad ===3){
   //   sett('F°')
   // }
+  const [metricToggleVal,setMerticToggleVal] = useState()
+  const [metric, setMetric] = useState('m/s')
 
+  function changeSize(value) {
+    if (value === 1) {
+      document.getElementById("one").style.fontWeight = "500";
+      document.getElementById("two").style.fontWeight = "100";
+      setMetric('m/s')
+    } else if (value === 2) {
+      document.getElementById("two").style.fontWeight = "500";
+      document.getElementById("one").style.fontWeight = "100";
+      setMetric('Mph')
+
+    }
+  }
+const [time,month,year,hour,min,sec] = timeConverter(weatherData.dt)
   return (
     <div>
       {/* <form onSubmit={(e)=>{console.log("submitted")}}>
@@ -127,7 +143,7 @@ const WeatherDataDisplay = ({ weatherData, locationName }) => {
         )}
       </div> */}
       <div id="weth-container">
-      <button
+        {/* <button
       className="btn-in btn"
           onClick={() => {
             setrad(1);
@@ -150,36 +166,60 @@ const WeatherDataDisplay = ({ weatherData, locationName }) => {
           }}
         >
           Farenheit
-        </button>
-        <header id="weth-weather">
-          <img src={state} alt={"icon"}></img>
-          {weatherData && (
-            <h1>
-              {changeTemp(weatherData.temp, rad)} {changT(rad)}
-            </h1>
-          )}
-          <div>
-            {<p>{weatherData.weather}</p>}
+        
+        </button> */}
+        
 
-            {<p>{locationName}</p>}
+        <header id="weth-weather">
+         <div id="img-container"> {weatherData && <img src={state} alt={"icon"}></img>}</div>
+          
+          {weatherData && <h1>{changeTemp(weatherData.temp, metricToggleVal)}°</h1>}
+          <div id="changeTemp-btn">
+            {
+              <h2
+                id="one"
+                onClick={() => {
+                  // setrad(1);
+                  setMerticToggleVal(1)
+                  changeSize(1);
+                }}
+              >
+                C
+              </h2>
+            }
+            |
+            <h2
+              id="two"
+              onClick={() => {
+                // setrad(3);
+                setMerticToggleVal(2)
+                changeSize(2);
+              }}
+            >
+              F
+            </h2>
+          </div>
+          <div id="header-des">
+            {weatherData && <p>{weatherData.weather}</p>}
+            {weatherData && <p>{locationName}</p>}
           </div>
         </header>
         <main id="main">
           <div className="main-des">
+            <p>Weather Time</p>
             <p>Description</p>
             <p>Pressure:</p>
             <p>Humidity:</p>
             <p>Wind Speed:</p>
-            {/* <p>Wind Gust:</p> */}
             <p>Country:</p>
           </div>
           <div className="main-des">
-            {<p>{weatherData.description}</p>}
-            {<p>{weatherData.pressure} mbar</p>}
-            {<p>{weatherData.humidity}%</p>}
-            {<p>{weatherData.wind} m/s</p>}
-            {/* {<p>{weatherData.gust} m/s</p>} */}
-            {<p>{weatherData.country}</p>}
+            {weatherData && <p>{hour}:{min} UTC</p>}
+            {weatherData && <p>{weatherData.description}</p>}
+            {weatherData && <p>{weatherData.pressure} mbar</p>}
+            {weatherData && <p>{weatherData.humidity}%</p>}
+            {weatherData && <p>{changeSpeed(metricToggleVal, weatherData.wind)} {metric} </p>}
+            {weatherData && <p>{weatherData.country}</p>}
           </div>
         </main>
       </div>

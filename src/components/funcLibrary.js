@@ -12,7 +12,7 @@ export function timeConverter(UNIX_timestamp) {
     "Sep",
     "Oct",
     "Nov",
-    "Dec", 
+    "Dec",
   ];
   var year = a.getFullYear();
   var month = months[a.getMonth()];
@@ -22,16 +22,16 @@ export function timeConverter(UNIX_timestamp) {
   var sec = a.getSeconds();
   var time =
     date + " " + month + " " + year + " " + hour + ":" + min + ":" + sec;
-  return time;
+  return [time,month,year,hour,min,sec];
 }
 
 export function changeTemp(value, option) {
   switch (option) {
     case 1:
       return Math.floor(value - 273.15);
+    // case 2:
+    //   return value;
     case 2:
-      return value;
-    case 3:
       return Math.floor(((value - 273.15) * 9) / 5 + 32);
 
     default:
@@ -39,16 +39,28 @@ export function changeTemp(value, option) {
   }
 }
 
-export function changT(option){
+export function changT(option) {
   switch (option) {
     case 1:
       return "C°";
     case 2:
-      return "K";
+      return "F";
     case 3:
       return "F°";
 
     default:
       return "C°";
+  }
+}
+
+export function changeSpeed(option, speed) {
+  switch (option) {
+    case 1:
+      return speed;
+    case 2:
+      let v = speed * 2.2369;
+      return v.toFixed(2);
+    default:
+      return speed;
   }
 }
