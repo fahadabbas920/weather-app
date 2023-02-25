@@ -33,14 +33,46 @@ function App() {
   });
   // const [tempName, setTempName] = useState()
   const inputref = useRef();
-
+  const [geoError,setGeoError] = useState('')
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((e) => {
-      const { latitude: lat, longitude: lon } = e.coords;
-      // console.log(e);
-      getWeatherData({ lat, lon });
-      getLocationName({lat,lon})
-    });
+
+    navigator.permissions && navigator.permissions.query({name: 'geolocation'})
+    .then(function(PermissionStatus) {
+        if (PermissionStatus.state == 'granted') {
+          navigator.geolocation.getCurrentPosition((e) => {
+            const { latitude: lat, longitude: lon } = e.coords;
+            // console.log(e);
+            getWeatherData({ lat, lon });
+            getLocationName({lat,lon})
+          });
+        } else if (PermissionStatus.state == 'prompt') {
+              // prompt - not yet grated or denied
+              console.log("prompt")
+              setGeoError('Please Allow from prompt.')
+        } else {
+             //denied
+             console.log("denied")
+             setGeoError(`Live Location permission denied. Please Enable Live Location and reload page`)
+
+        }
+    })
+
+   
+
+
+
+    // if(navigator.geolocation){
+    //   navigator.geolocation.getCurrentPosition((e) => {
+    //     const { latitude: lat, longitude: lon } = e.coords;
+    //     // console.log(e);
+    //     getWeatherData({ lat, lon });
+    //     getLocationName({lat,lon})
+    //   });
+    // }else{
+    //   console.log("Enable Live Location")
+
+    // }
+    // console.log(navigator.geolocation)
   }, []);
   //
   const [error, setError] = useState("");
@@ -155,6 +187,8 @@ function App() {
 
   return (
     <div className="App">
+      <div id="bg">.</div>
+      <div className="myApp">
       <header className="App-header">
         <input
         className="input-field"
@@ -190,7 +224,8 @@ function App() {
         {/* <button onClick={()=>{getForcast({lat,lon})}}>
           getForcast
         </button> */}
-        <h4>{!locationName && "Please Enter a Location"}</h4>
+        <h4 id="InputRef">{!locationName && "Please Enter a Location"}</h4>
+        <h3 id="geoError">{geoError}</h3>
         {/* <h4>{error}</h4>/ */}
         {/* <button
           onClick={() => {
@@ -210,6 +245,7 @@ function App() {
       {/* {state && <img src={state} alt="hehe" width={200} height={200} />} */}
       {/* {airPollution && <PollutionDataDisplay pollutionData={airPollution}></PollutionDataDisplay>} */}
       {/* <PollutionDataDisplay pollutionData={airPollution}></PollutionDataDisplay> */}
+    </div>
     </div>
   );
 }
