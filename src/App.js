@@ -6,10 +6,12 @@ import WeatherDataDisplay from "./components/weatherDataDisplay";
 // import PollutionDataDisplay from "./components/pollutionDataDisplay";
 
 function App() {
-
   const [locationName, setLocationName] = useState();
+  const [error, setError] = useState("");
+  const [geoError, setGeoError] = useState("");
 
   // const [airPollution, setAirPollution] = useState();
+  const inputref = useRef();
 
   const [weatherData, setWeatherData] = useState({
     temp: "NaN",
@@ -29,69 +31,47 @@ function App() {
     lat: "NaN",
     lon: "NaN",
     icon: "NaN",
-    dt: "NaN"
+    dt: "NaN",
   });
-  // const [tempName, setTempName] = useState()
-  const inputref = useRef();
-  const [geoError,setGeoError] = useState('')
+
   useEffect(() => {
-
-    navigator.permissions && navigator.permissions.query({name: 'geolocation'})
-    .then(function(PermissionStatus) {
-        if (PermissionStatus.state == 'granted') {
-          navigator.geolocation.getCurrentPosition((e) => {
-            const { latitude: lat, longitude: lon } = e.coords;
-            // console.log(e);
-            getWeatherData({ lat, lon });
-            getLocationName({lat,lon})
-          });
-        } else if (PermissionStatus.state == 'prompt') {
-              // prompt - not yet grated or denied
-              console.log("prompt")
-              setGeoError('Please Allow from prompt.')
-        } else {
-             //denied
-             console.log("denied")
-             setGeoError(`Live Location permission denied. Please Enable Live Location and reload page`)
-
-        }
-    })
-
-   
-
-
-
-    // if(navigator.geolocation){
-    //   navigator.geolocation.getCurrentPosition((e) => {
-    //     const { latitude: lat, longitude: lon } = e.coords;
-    //     // console.log(e);
-    //     getWeatherData({ lat, lon });
-    //     getLocationName({lat,lon})
-    //   });
-    // }else{
-    //   console.log("Enable Live Location")
-
-    // }
-    // console.log(navigator.geolocation)
+    navigator.permissions &&
+      navigator.permissions
+        .query({ name: "geolocation" })
+        .then(function (PermissionStatus) {
+          if (PermissionStatus.state === "granted") {
+            navigator.geolocation.getCurrentPosition((e) => {
+              const { latitude: lat, longitude: lon } = e.coords;
+              getWeatherData({ lat, lon });
+              getLocationName({ lat, lon });
+            });
+          } else if (PermissionStatus.state === "prompt") {
+            // prompt - not yet grated or denied
+            console.log("prompt");
+            setGeoError("Please Enable Live Location.");
+          } else {
+            //denied
+            console.log("denied");
+            setGeoError(
+              `Live Location permission denied. Please enable Live Location and click live location button.`
+            );
+          }
+        });
   }, []);
-  //
-  const [error, setError] = useState("");
-  console.log(error);
-  // const [tempName, setTempName] = useState('')
-  function handleClick(value) {
 
+  console.log(error);
+  function handleClick(value) {
     if (!value) {
       console.log("Please Enter a Location");
-    } else if(locationName === value){
-      console.log("Already there")
-    }
-    else{
+    } else if (locationName === value) {
+      console.log("Already there");
+    } else {
       getLocation(value);
-      setLocationName(value)
+      setLocationName(value);
     }
   }
 
-  function getLocationName({lat,lon}){
+  function getLocationName({ lat, lon }) {
     fetch(
       `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=fed0b3710b7bef715d1a4f4e8864ffa9`
     )
@@ -104,14 +84,13 @@ function App() {
       });
   }
 
-
-
   function handleLiveLocation() {
     navigator.geolocation.getCurrentPosition((e) => {
       const { latitude: lat, longitude: lon } = e.coords;
       console.log(e);
+      setGeoError("");
       getWeatherData({ lat, lon });
-      getLocationName({lat,lon})
+      getLocationName({ lat, lon });
       // fetch(
       //   `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=fed0b3710b7bef715d1a4f4e8864ffa9`
       // )
@@ -169,7 +148,7 @@ function App() {
           sunrise: data.sys.sunrise,
           sunset: data.sys.sunset,
           icon: data.weather[0].icon,
-          dt: data.dt
+          dt: data.dt,
         });
         // console.log(data.dt);
         // getForcast({ lat, lon });
@@ -181,53 +160,43 @@ function App() {
       });
   }
 
-  function handleCBtnPD() {
-    document.getElementById("pollutionData").style.display = "block";
-  }
+  // function handleCBtnPD() {
+  //   document.getElementById("pollutionData").style.display = "block";
+  // }
 
   return (
     <div className="App">
       <div id="bg">.</div>
       <div className="myApp">
-      <header className="App-header">
-        <input
-        className="input-field"
-          placeholder="Type Location Name"
-          ref={inputref}
-        //   onChange={(e) => {
-        //     // setTempName(e.target.value)
-        //     // setLocationName(e.target.value);
-        //   }
-        // }
-        // onChange = {(e)=>{
-        //   setTempName(e.target.value)
-        // }} 
-        ></input>
-
-        <button
-          onClick={() => {
-            handleClick(inputref.current.value);
-          }}
-          className="btn-out btn"
-
-        >
-          Get Weather
-        </button>
-        <button
-          onClick={() => {
-            handleLiveLocation();
-          }}
-          className="btn-out btn"
-        >
-          Live Location
-        </button>
-        {/* <button onClick={()=>{getForcast({lat,lon})}}>
+        <header className="App-header">
+          <input
+            className="input-field"
+            placeholder="Type Location Name"
+            ref={inputref}
+          ></input>
+          <button
+            onClick={() => {
+              handleClick(inputref.current.value);
+            }}
+            className="btn-out btn"
+          >
+            Get Weather
+          </button>
+          <button
+            onClick={() => {
+              handleLiveLocation();
+            }}
+            className="btn-out btn"
+          >
+            Live Location
+          </button>
+          {/* <button onClick={()=>{getForcast({lat,lon})}}>
           getForcast
         </button> */}
-        <h4 id="InputRef">{!locationName && "Please Enter a Location"}</h4>
-        <h3 id="geoError">{geoError}</h3>
-        {/* <h4>{error}</h4>/ */}
-        {/* <button
+          <h4 id="InputRef">{!locationName && "Please Enter a Location"}</h4>
+          {navigator.geolocation ? <h3 id="geoError">{geoError}</h3> : ""}
+          {/* <h4>{error}</h4>/ */}
+          {/* <button
           onClick={() => {
             handleCBtnPD();
           }}
@@ -235,17 +204,15 @@ function App() {
         >
           Open Air Pollution
         </button> */}
-      </header>
-      <WeatherDataDisplay
-        weatherData={weatherData}
-        locationName={locationName}
-        // KtoC={KtoC}
-        // timeConverter={timeConverter}
-      ></WeatherDataDisplay>
-      {/* {state && <img src={state} alt="hehe" width={200} height={200} />} */}
-      {/* {airPollution && <PollutionDataDisplay pollutionData={airPollution}></PollutionDataDisplay>} */}
-      {/* <PollutionDataDisplay pollutionData={airPollution}></PollutionDataDisplay> */}
-    </div>
+        </header>
+        <WeatherDataDisplay
+          weatherData={weatherData}
+          locationName={locationName}
+        ></WeatherDataDisplay>
+        {/* {state && <img src={state} alt="hehe" width={200} height={200} />} */}
+        {/* {airPollution && <PollutionDataDisplay pollutionData={airPollution}></PollutionDataDisplay>} */}
+        {/* <PollutionDataDisplay pollutionData={airPollution}></PollutionDataDisplay> */}
+      </div>
     </div>
   );
 }

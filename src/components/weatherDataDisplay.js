@@ -2,7 +2,7 @@ import { changeTemp } from "./funcLibrary";
 import { timeConverter } from "./funcLibrary";
 import { useState } from "react";
 import { useEffect } from "react";
-import { changT } from "./funcLibrary";
+// import { changT } from "./funcLibrary";
 import { changeSpeed } from "./funcLibrary";
 
 const WeatherDataDisplay = ({ weatherData, locationName }) => {
