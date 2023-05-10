@@ -11,6 +11,10 @@ function App() {
   const [geoError, setGeoError] = useState("");
 
   // const [airPollution, setAirPollution] = useState();
+
+
+
+  
   const inputref = useRef();
 
   const [weatherData, setWeatherData] = useState({
